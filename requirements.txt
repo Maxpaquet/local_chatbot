@@ -1,0 +1,11 @@
+jupyter
+langchain==0.0.335
+huggingface_hub
+transformers
+sentence_transformers
+accelerate
+bitsandbytes
+pandas
+numpy
+openai==1.2.4
+tiktoken==0.5.1
