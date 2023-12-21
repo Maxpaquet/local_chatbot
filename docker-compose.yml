@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  jupyter:
+    image: app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "6761:8888"
+    volumes:
+      - .:/app
+      - ./../models:/models
+    env_file:
+      - dev.env
+
+  ggml_mistral:
+    image: "ghcr.io/abetlen/llama-cpp-python:latest"
+    environment:
+      - MODEL=/models/mistral-7b-instruct-v0.1.Q4_K_M.gguf
+      - N_CTX=2048
+    volumes:
+      - .:/app
+      - ./../models:/models
+    ports:
+      - 8001:8000
+
+  ggml_tiny_llama:
+    image: "ghcr.io/abetlen/llama-cpp-python:latest"
+    environment:
+      - MODEL=/models/tinyllama-1.1b-chat-v0.3.Q4_K_M.gguf
+      - N_CTX=96
+    volumes:
+      - ./../models:/models
+    ports:
+      - 8002:8000
